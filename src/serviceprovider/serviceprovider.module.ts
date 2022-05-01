@@ -3,6 +3,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ServiceProviderSchema } from './schema/serviceprovider.schema';
 import { SERVICE_PROVIDER } from '../../common/constrain';
 import { ServiceProviderService } from './serviceprovider.service';
+import { ServiceProviderController } from './serviceprovider.controller';
 
 @Module({
   imports: [
@@ -10,7 +11,7 @@ import { ServiceProviderService } from './serviceprovider.service';
       { name: SERVICE_PROVIDER, schema: ServiceProviderSchema },
     ]),
   ],
-  controllers: [],
+  controllers: [ServiceProviderController],
   providers: [ServiceProviderService],
   exports: [],
 })
