@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { AccountDto } from './dto/account.dto';
@@ -54,6 +58,25 @@ export class AccountService {
       return await this.accountDB
         .findOneAndUpdate({ _id: id }, { $set: { password: hasnew } })
         .exec();
+    }
+  }
+
+  async login(email: string, password: string) {
+    const mailcheck = await this.accountDB.findOne({ email: email }).exec();
+    if (!mailcheck) {
+      throw new UnauthorizedException();
+    } else {
+      const hashpass = mailcheck.password;
+      const checkpass = bcrypt.compareSync(password, hashpass);
+      if (!checkpass) {
+        throw new UnauthorizedException();
+      } else {
+        const jwtAuthToken = jwt.sign(
+          { ud: mailcheck._id, mail: mailcheck.email, roles: mailcheck.role },
+          JWT_SECRECT,
+        );
+        return jwtAuthToken;
+      }
     }
   }
 
