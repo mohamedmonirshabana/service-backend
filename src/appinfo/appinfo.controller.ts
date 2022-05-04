@@ -1,7 +1,9 @@
-import { Controller, Get, Post, Put, Body } from '@nestjs/common';
+import { Controller, Get, Post, Put, Body, UseGuards } from '@nestjs/common';
 import { AppInfoService } from './appinfo.service';
+import { AdminGuard } from '../guards/admin.guard';
 
 @Controller('appinfo')
+@UseGuards(AdminGuard)
 export class AppInfoController {
   constructor(private appinfoDB: AppInfoService) {}
 
