@@ -1,12 +1,31 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
 import { RequestServiceService } from './requestservice.service';
 import { AddRequest } from './dto/addrequestService';
+import { AuthenticationGuard } from '../guards/authentication.guard';
+import { AdminGuard } from '../guards/admin.guard';
+import { ProviderGuard } from '../guards/provider.guard';
+import { UserGuard } from '../guards/user.guard';
+import { ServiceProviderService } from '../serviceprovider/serviceprovider.service';
+import { request } from 'express';
 
 @Controller('requestservice')
+@UseGuards(AuthenticationGuard)
 export class RequestServiceController {
-  constructor(private requestService: RequestServiceService) {}
+  constructor(
+    private requestService: RequestServiceService,
+    private serviceprovider: ServiceProviderService,
+  ) {}
 
   @Post()
+  @UseGuards(UserGuard)
   async addrequest(@Body() addRequest: AddRequest) {
     await this.requestService.addRequest(
       addRequest.user_Id,
@@ -15,8 +34,12 @@ export class RequestServiceController {
   }
 
   @Get(':uid')
-  async getRequestforProvider(@Param('uid') uid: string) {
-    await this.requestService.getRequest_for_provider(uid);
+  @UseGuards(ProviderGuard)
+  async getRequestforProvider() {
+    const uid = request['user'][1];
+    const Data = await this.serviceprovider.getDataByuserID(uid);
+    const result = await this.requestService.getRequest_for_provider(Data._id);
+    return result;
   }
 
   @Get('confirm/:id')

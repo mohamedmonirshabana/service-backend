@@ -17,8 +17,12 @@ export class RequestServiceService {
       user_Id: userid,
     });
   }
-  async getRequest_for_provider(userid: string) {
-    //   await this.requestServiceDB.find({'serviceProvider_Id.user'})
+  async getRequest_for_provider(providerid: string) {
+    return await this.requestServiceDB
+      .find({
+        $and: [{ serviceProvider_Id: providerid }, { request_status: false }],
+      })
+      .exec();
   }
 
   async confirmrequest(id: string) {

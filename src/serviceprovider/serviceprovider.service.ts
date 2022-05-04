@@ -50,4 +50,8 @@ export class ServiceProviderService {
       .find({ active: true })
       .populate('user_id');
   }
+
+  async getDataByuserID(id) {
+    return await this.serviceproviderDB.findOne({ user_id: id }).exec();
+  }
 }

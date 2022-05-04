@@ -28,5 +28,9 @@ export class ServiceProcessService {
     return Data;
   }
 
+  async getproviderNumbyuserID(userid: string) {
+    return await this.serviceprodcessDB.find({ user_Id: userid }).select('_id');
+  }
+
   //get for user to get Location
 }

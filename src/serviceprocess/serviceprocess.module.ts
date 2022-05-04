@@ -13,6 +13,6 @@ import { ServiceProcessService } from './serviceprocess.service';
   ],
   controllers: [ServiceProcessController],
   providers: [ServiceProcessService],
-  exports: [],
+  exports: [ServiceProcessService],
 })
 export class ServiceProcessModule {}
