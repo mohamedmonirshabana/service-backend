@@ -13,6 +13,6 @@ import { ServiceProviderController } from './serviceprovider.controller';
   ],
   controllers: [ServiceProviderController],
   providers: [ServiceProviderService],
-  exports: [],
+  exports: [ServiceProviderService],
 })
 export class ServiceProviderModule {}
