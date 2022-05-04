@@ -9,23 +9,20 @@ export class AppInfoService {
   constructor(@InjectModel(APP_INFO) private appinfoDB: Model<AppInfoDto>) {}
 
   async addmoneyforFirstTime(app_tax: number) {
-      const Data = new this.appinfoDB({
-          app_money: 0,
-          app_tax:
+    const Data = new this.appinfoDB({
+      app_money: 0,
+      app_tax: app_tax,
     });
-     await  Data.save();
-      
+    await Data.save();
   }
-    
-    async updateInfo(money: number) {
-        const data = await this.appinfoDB.findOne();
-        data.app_money += money;
-        data.save()
-    }
 
-    async showBasket()
-    {
-        return await this.appinfoDB.findOne();
-        
-    }
+  async updateInfo(money: number) {
+    const data = await this.appinfoDB.findOne();
+    data.app_money += money;
+    data.save();
+  }
+
+  async showBasket() {
+    return await this.appinfoDB.findOne();
+  }
 }

@@ -16,7 +16,7 @@ export class ServiceProcessService {
       $set: [{ status: true }],
     });
   }
-  async addCommentandRate(id: string, comment: stringify, rate: number) {
+  async addCommentandRate(id: string, comment: string, rate: number) {
     const Data = await this.serviceprodcessDB.findOne({ _id: id });
     Data.userComment = comment;
     Data.userRating = rate;
