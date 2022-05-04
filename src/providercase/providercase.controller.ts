@@ -1,7 +1,19 @@
-import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Put,
+  UseGuards,
+} from '@nestjs/common';
 import { ProviderCaseService } from './providercase.service';
+import { AuthenticationGuard } from '../guards/authentication.guard';
+import { ProviderGuard } from '../guards/provider.guard';
 
 @Controller('providercase')
+@UseGuards(AuthenticationGuard)
+@UseGuards(ProviderGuard)
 export class ProviderCaseController {
   constructor(private providercase: ProviderCaseService) {}
 
