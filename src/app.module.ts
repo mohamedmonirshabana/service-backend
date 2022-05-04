@@ -10,6 +10,8 @@ import { ServiceProviderModule } from './serviceprovider/serviceprovider.module'
 import { ServicesModule } from './services/services.module';
 import { GetUserMiddleware } from './middleware/get-user.middleware';
 
+import { CategoriesController } from './categories/categories.controller';
+
 @Module({
   imports: [
     MongooseModule.forRoot(Mongo_String),
@@ -26,6 +28,6 @@ import { GetUserMiddleware } from './middleware/get-user.middleware';
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer): void {
-    consumer.apply(GetUserMiddleware);
+    consumer.apply(GetUserMiddleware).forRoutes(CategoriesController);
   }
 }

@@ -1,8 +1,19 @@
-import { Controller, Post, Get, Patch, Param, Body } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Get,
+  Patch,
+  Param,
+  Body,
+  UseGuards,
+} from '@nestjs/common';
 import { ServiceProviderDto } from './dto/serviceprovider.dto';
 import { ServiceProviderService } from './serviceprovider.service';
+import { AuthenticationGuard } from '../guards/authentication.guard';
+import { AdminGuard } from 'src/guards/admin.guard';
 
 @Controller('serviceprovider')
+@UseGuards(AuthenticationGuard)
 export class ServiceProviderController {
   constructor(private serviceProviderService: ServiceProviderService) {}
 
@@ -15,6 +26,7 @@ export class ServiceProviderController {
     return await this.serviceProviderService.findAllserviceprovider(serviceId);
   }
   @Post('requestprovider/:id')
+  @UseGuards(AdminGuard)
   async requestToProvider(
     @Param('id') id: string,
     @Body('userid') userid: string,

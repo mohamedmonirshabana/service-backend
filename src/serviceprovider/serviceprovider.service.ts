@@ -14,9 +14,11 @@ export class ServiceProviderService {
   async findAllserviceprovider(
     serviceId: string,
   ): Promise<ServiceProviderDto[]> {
-    return await this.serviceproviderDB.find({
-      $and: [{ service_id: serviceId }, { active: true }],
-    });
+    return await this.serviceproviderDB
+      .find({
+        $and: [{ service_id: serviceId }, { active: true }],
+      })
+      .populate('user_id');
   }
 
   async requestToServiceprovider(
@@ -44,6 +46,8 @@ export class ServiceProviderService {
     );
   }
   async getAllProvider() {
-    return await this.serviceproviderDB.find({ active: true });
+    return await this.serviceproviderDB
+      .find({ active: true })
+      .populate('user_id');
   }
 }
