@@ -4,7 +4,10 @@ import { CategoriesDto } from './dto/categories.dto';
 import { AdminGuard } from '../guards/admin.guard';
 import { AuthenticationGuard } from '../guards/authentication.guard';
 
+import { ApiTags } from '@nestjs/swagger';
+
 @Controller('category')
+@ApiTags('Category')
 export class CategoriesController {
   constructor(private categoryDB: CategoriesService) {}
 

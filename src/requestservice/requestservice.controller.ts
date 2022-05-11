@@ -16,8 +16,11 @@ import { UserGuard } from '../guards/user.guard';
 import { ServiceProviderService } from '../serviceprovider/serviceprovider.service';
 import { request } from 'express';
 
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
+
 @Controller('requestservice')
 @UseGuards(AuthenticationGuard)
+@ApiTags('request Service')
 export class RequestServiceController {
   constructor(
     private requestService: RequestServiceService,

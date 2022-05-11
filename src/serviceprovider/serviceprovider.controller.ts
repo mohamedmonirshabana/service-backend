@@ -12,8 +12,11 @@ import { ServiceProviderService } from './serviceprovider.service';
 import { AuthenticationGuard } from '../guards/authentication.guard';
 import { AdminGuard } from 'src/guards/admin.guard';
 
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
+
 @Controller('serviceprovider')
 @UseGuards(AuthenticationGuard)
+@ApiTags('service provider')
 export class ServiceProviderController {
   constructor(private serviceProviderService: ServiceProviderService) {}
 

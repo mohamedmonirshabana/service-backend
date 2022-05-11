@@ -2,8 +2,10 @@ import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
 import { AccountService } from './account.service';
 import { AccountDto } from './dto/account.dto';
 import { AccountAdd } from './dto/accountAdd.Dto';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('account')
+@ApiTags('Account')
 export class AccountController {
   constructor(private account: AccountService) {}
   @Post('signup')

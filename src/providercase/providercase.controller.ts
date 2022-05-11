@@ -11,9 +11,12 @@ import { ProviderCaseService } from './providercase.service';
 import { AuthenticationGuard } from '../guards/authentication.guard';
 import { ProviderGuard } from '../guards/provider.guard';
 
+import { ApiTags } from '@nestjs/swagger';
+
 @Controller('providercase')
 @UseGuards(AuthenticationGuard)
 @UseGuards(ProviderGuard)
+@ApiTags('provider Case')
 export class ProviderCaseController {
   constructor(private providercase: ProviderCaseService) {}
 

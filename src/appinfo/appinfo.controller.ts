@@ -2,8 +2,10 @@ import { Controller, Get, Post, Put, Body, UseGuards } from '@nestjs/common';
 import { AppInfoService } from './appinfo.service';
 import { AdminGuard } from '../guards/admin.guard';
 
+import { ApiTags } from '@nestjs/swagger';
 @Controller('appinfo')
 @UseGuards(AdminGuard)
+@ApiTags('App Info')
 export class AppInfoController {
   constructor(private appinfoDB: AppInfoService) {}
 
