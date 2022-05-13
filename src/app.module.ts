@@ -19,6 +19,7 @@ import { GetUserMiddleware } from './middleware/get-user.middleware';
 import { CategoriesController } from './categories/categories.controller';
 import { AccountController } from './account/account.controller';
 import { ServicesController } from './services/services.controller';
+import { ServiceProviderController } from './serviceprovider/serviceprovider.controller';
 
 @Module({
   imports: [
@@ -60,6 +61,7 @@ export class AppModule implements NestModule {
         path: 'service/name/servicename',
         method: RequestMethod.GET,
       },
+      ServiceProviderController,
     );
   }
 }

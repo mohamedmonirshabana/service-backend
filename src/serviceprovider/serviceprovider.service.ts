@@ -3,6 +3,7 @@ import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { SERVICE_PROVIDER } from '../common/constrain';
 import { ServiceProviderDto } from './dto/serviceprovider.dto';
+import { RequestServiceProviderDto } from './dto/requestServiceprovider.dto';
 
 @Injectable()
 export class ServiceProviderService {
@@ -21,15 +22,11 @@ export class ServiceProviderService {
       .populate('user_id');
   }
 
-  async requestToServiceprovider(
-    user_id: string,
-    servieId: string,
-    price: number,
-  ) {
+  async requestToServiceprovider(requestservice: RequestServiceProviderDto) {
     const Data = await this.serviceproviderDB.create({
-      user_id: user_id,
-      service_id: servieId,
-      serviceprice: price,
+      user_id: requestservice.user_id,
+      service_id: requestservice.service_id,
+      serviceprice: requestservice.serviceprice,
       active: false,
     });
     return Data;
@@ -53,5 +50,9 @@ export class ServiceProviderService {
 
   async getDataByuserID(id) {
     return await this.serviceproviderDB.findOne({ user_id: id }).exec();
+  }
+
+  async getAll() {
+    return await this.serviceproviderDB.find();
   }
 }
