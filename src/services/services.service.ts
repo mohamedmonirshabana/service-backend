@@ -23,8 +23,12 @@ export class ServicesService {
     return await this.serviceDB.findOne({ serviceName: serviceName });
   }
 
-  async findByCategoryID(id: string) {
+  async findByID(id: string) {
     const data = await this.serviceDB.find({ _id: id });
     return data;
+  }
+
+  async findByCategoryID(id: string) {
+    return await this.serviceDB.find({ category_Id: id });
   }
 }

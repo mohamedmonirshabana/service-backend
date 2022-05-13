@@ -23,14 +23,15 @@ import {
 
 @Controller('service')
 @ApiTags('Service')
-@ApiBearerAuth('access-token')
-@UseGuards(AuthenticationGuard)
+// @ApiBearerAuth('access-token')
+// @UseGuards(AuthenticationGuard)
 export class ServicesController {
   constructor(private serviceService: ServicesService) {}
 
   @Post()
-  // @UseGuards(AuthenticationGuard)
+  @UseGuards(AuthenticationGuard)
   @UseGuards(AdminGuard)
+  @ApiBearerAuth('access-token')
   @ApiResponse({
     description: 'Admin Add service',
     status: 201,
@@ -45,6 +46,7 @@ export class ServicesController {
   @Put(':id')
   @UseGuards(AuthenticationGuard)
   @UseGuards(AdminGuard)
+  @ApiBearerAuth('access-token')
   @ApiBody({ type: Services })
   async editService(@Param('id') id: string, @Body() service: Services) {
     const result = await this.serviceService.editService(id, service);
@@ -52,14 +54,21 @@ export class ServicesController {
   }
 
   @Get('name/:servicename')
+  @ApiBearerAuth('access-token')
   async getServiceByName(@Param('servicename') servicename: string) {
     const data = await this.serviceService.findByServiceName(servicename);
     return data;
   }
 
   @Get(':id')
+  @ApiBearerAuth('access-token')
   async getServiceId(@Param('id') id: string) {
-    const data = await this.serviceService.findByCategoryID(id);
+    const data = await this.serviceService.findByID(id);
     return data;
+  }
+
+  @Get('category/:id')
+  async getbycategoryID(@Param('id') id: string) {
+    return await this.serviceService.findByCategoryID(id);
   }
 }

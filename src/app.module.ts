@@ -44,7 +44,22 @@ export class AppModule implements NestModule {
         path: 'category',
         method: RequestMethod.POST,
       },
-      ServicesController,
+      {
+        path: 'service',
+        method: RequestMethod.POST,
+      },
+      {
+        path: 'service/:id',
+        method: RequestMethod.PUT,
+      },
+      {
+        path: 'service/:id',
+        method: RequestMethod.GET,
+      },
+      {
+        path: 'service/name/servicename',
+        method: RequestMethod.GET,
+      },
     );
   }
 }
