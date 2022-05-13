@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { RequestServiceDto } from './dto/requestservice.dto';
-import { REQUEST_SERVICE } from '../../common/constrain';
+import { REQUEST_SERVICE } from '../common/constrain';
 import { Model } from 'mongoose';
 
 @Injectable()

@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { CATEGORY_TBLE } from '../../common/constrain';
+import { CATEGORY_TBLE } from '../common/constrain';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { CategoriesDto } from './dto/categories.dto';

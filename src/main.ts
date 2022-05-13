@@ -12,9 +12,12 @@ async function bootstrap() {
     .setVersion('1.0.0')
     .addBearerAuth(
       {
+        description: 'Default Jwt Authorization',
         type: 'http',
+        in: 'Header',
         scheme: 'bearer',
-        bearerFormat: 'Token',
+        bearerFormat: 'Bearer',
+        name: 'Authorization',
       },
       'access-token',
     )
@@ -24,3 +27,15 @@ async function bootstrap() {
   await app.listen(8000);
 }
 bootstrap();
+
+/*
+.addBearerAuth(
+      {
+        type: 'http',
+        scheme: 'bearer',
+        bearerFormat: 'Jwt',
+        name: 'authorization',
+      },
+      'access-token',
+    )
+*/

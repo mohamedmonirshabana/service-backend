@@ -1,5 +1,5 @@
 import * as mongoose from 'mongoose';
-import { CATEGORY_TBLE } from '../../../common/constrain';
+import { CATEGORY_TBLE } from '../../common/constrain';
 
 export const ServiceSchema = new mongoose.Schema(
   {

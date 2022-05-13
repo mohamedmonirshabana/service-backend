@@ -1,5 +1,6 @@
 import { ApiOperation, ApiProperty } from '@nestjs/swagger';
 import { IsEmail, IsMongoId, IsPhoneNumber, IsString } from 'class-validator';
+import { type } from 'os';
 
 export class AccountDto {
   @IsMongoId()

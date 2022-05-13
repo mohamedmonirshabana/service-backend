@@ -4,7 +4,7 @@ import { CategoriesDto } from './dto/categories.dto';
 import { AdminGuard } from '../guards/admin.guard';
 import { AuthenticationGuard } from '../guards/authentication.guard';
 
-import { ApiTags } from '@nestjs/swagger';
+import { ApiTags, ApiBearerAuth, ApiResponse, ApiBody } from '@nestjs/swagger';
 
 @Controller('category')
 @ApiTags('Category')
@@ -14,13 +14,15 @@ export class CategoriesController {
   @Post()
   @UseGuards(AuthenticationGuard)
   @UseGuards(AdminGuard)
+  @ApiBearerAuth('access-token')
+  @ApiBody({ type: CategoriesDto })
   async addCategory(@Body() category: CategoriesDto) {
-    console.log(category);
     return await this.categoryDB.addCategory(category);
   }
 
   @Get()
   async getAllCategory() {
+    console.log('KoKo');
     return await this.categoryDB.findAll();
   }
 }

@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Account } from './schema/account.schema';
-import { USER_TBLE } from '../../common/constrain';
+import { USER_TBLE } from '../common/constrain';
 import { AccountService } from './account.service';
 import { AccountController } from './account.controller';
 

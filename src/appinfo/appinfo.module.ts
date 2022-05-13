@@ -3,7 +3,7 @@ import { AppInfoService } from './appinfo.service';
 import { AppInfoController } from './appinfo.controller';
 import { appinfoschema } from './schema/appinfo.schema';
 import { MongooseModule } from '@nestjs/mongoose';
-import { APP_INFO } from '../../common/constrain';
+import { APP_INFO } from '../common/constrain';
 
 @Module({
   imports: [

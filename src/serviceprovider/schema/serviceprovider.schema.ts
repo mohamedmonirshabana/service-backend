@@ -1,5 +1,5 @@
 import * as mongoose from 'mongoose';
-import { SERVICE_TBLE, USER_TBLE } from '../../../common/constrain';
+import { SERVICE_TBLE, USER_TBLE } from '../../common/constrain';
 
 export const ServiceProviderSchema = new mongoose.Schema({
   service_id: {

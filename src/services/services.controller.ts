@@ -23,12 +23,13 @@ import {
 
 @Controller('service')
 @ApiTags('Service')
-@ApiBearerAuth()
+@ApiBearerAuth('access-token')
+@UseGuards(AuthenticationGuard)
 export class ServicesController {
   constructor(private serviceService: ServicesService) {}
 
   @Post()
-  @UseGuards(AuthenticationGuard)
+  // @UseGuards(AuthenticationGuard)
   @UseGuards(AdminGuard)
   @ApiResponse({
     description: 'Admin Add service',

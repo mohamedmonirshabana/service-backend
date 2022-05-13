@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { PROVIDER_CASE } from '../../common/constrain';
+import { PROVIDER_CASE } from '../common/constrain';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { ProviderCaseDto } from './dto/providercase.dto';

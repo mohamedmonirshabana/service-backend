@@ -1,5 +1,5 @@
 import * as mongoose from 'mongoose';
-import { USER_TBLE } from '../../../common/constrain';
+import { USER_TBLE } from '../../common/constrain';
 
 export const providercaseSchema = new mongoose.Schema(
   {

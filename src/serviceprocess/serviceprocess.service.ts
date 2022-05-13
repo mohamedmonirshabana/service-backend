@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { ServiceProcessDto } from './dto/serviceprocess.dto';
-import { SERVICE_PROCESS } from '../../common/constrain';
+import { SERVICE_PROCESS } from '../common/constrain';
 import { stringify } from 'querystring';
 
 @Injectable()

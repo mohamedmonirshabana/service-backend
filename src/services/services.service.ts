@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { Services } from './dto/services.dto';
-import { SERVICE_TBLE } from '../../common/constrain';
+import { SERVICE_TBLE } from '../common/constrain';
 
 @Injectable()
 export class ServicesService {
@@ -24,7 +24,7 @@ export class ServicesService {
   }
 
   async findByCategoryID(id: string) {
-    const data = await this.serviceDB.find({ category_Id: id });
+    const data = await this.serviceDB.find({ _id: id });
     return data;
   }
 }

@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { AppInfoDto } from './dto/appinfo.dto';
-import { APP_INFO } from '../../common/constrain';
+import { APP_INFO } from '../common/constrain';
 
 @Injectable()
 export class AppInfoService {

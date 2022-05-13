@@ -6,85 +6,61 @@ import {
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { AccountDto } from './dto/account.dto';
+import { AccountLoginDto } from './dto/accountlogin.dto';
 import { AccountAdd } from './dto/accountAdd.Dto';
-import { USER_TBLE } from '../../common/constrain';
+import { USER_TBLE } from '../common/constrain';
+import { ProfileDto } from './dto/profile.dto';
+import { PasswordDto } from './dto/password.dto';
+import { UpdateAccountDto } from './dto/updateAccount.Dto';
 import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
-import { JWT_SECRECT } from '../../common/constrain';
+import { JWT_SECRECT } from '../common/constrain';
+import { RoleDto } from './dto/chrole.dto';
 
 @Injectable()
 export class AccountService {
   constructor(@InjectModel(USER_TBLE) private accountDB: Model<AccountAdd>) {}
 
-  async register(userData: AccountDto) {
-    const maileCheck = await this.checkEmail(userData.email);
-
-    if (maileCheck) {
-      throw new BadRequestException();
-    }
-    const hashpassword = await bcrypt.hashSync(userData.password, 10);
-    const result = new this.accountDB({
-      username: userData.username,
-      email: userData.email,
-      role: userData.role,
-      phone: userData.phone,
-      password: hashpassword,
-      profilepics: userData.profilepics,
-      location: { type: 'Point', coordinates: [+userData.lng, +userData.lat] },
-    });
-    await result.save();
-    const authJwtToken = jwt.sign(
-      { ud: result._id, mail: result.email, roles: result.role },
-      JWT_SECRECT,
-    );
-    return authJwtToken;
-  }
   async getAccount(id: string) {
     const result = await this.accountDB.findOne({ _id: id });
     return result;
   }
 
-  async updateAccount(id: string, change: AccountDto) {
+  async updateAccount(id: string, change: UpdateAccountDto) {
     return await this.accountDB.findByIdAndUpdate({ _id: id }, change, {
       new: true,
     });
   }
 
-  async changePawword(id: string, oldpassword: string, newpassword: string) {
+  async changePawword(id: string, pass: PasswordDto) {
     const result = await this.accountDB.findOne({ _id: id });
-    const checkpassword = bcrypt.compareSync(oldpassword, result.password);
+    const checkpassword = bcrypt.compareSync(pass.oldPassword, result.password);
     if (checkpassword) {
-      const hasnew = await bcrypt.hashSync(newpassword, 10);
+      const hasnew = await bcrypt.hashSync(pass.newPassword, 10);
       return await this.accountDB
         .findOneAndUpdate({ _id: id }, { $set: { password: hasnew } })
         .exec();
     }
   }
 
-  async login(email: string, password: string) {
-    const mailcheck = await this.accountDB.findOne({ email: email }).exec();
-    if (!mailcheck) {
-      throw new UnauthorizedException();
-    } else {
-      const hashpass = mailcheck.password;
-      const checkpass = bcrypt.compareSync(password, hashpass);
-      if (!checkpass) {
-        throw new UnauthorizedException();
-      } else {
-        const jwtAuthToken = jwt.sign(
-          { ud: mailcheck._id, mail: mailcheck.email, roles: mailcheck.role },
-          JWT_SECRECT,
-        );
-        return jwtAuthToken;
-      }
-    }
+  async getAllusers() {
+    console.log('start');
+    return await this.accountDB.find();
   }
 
-  private async checkEmail(email: string): Promise<boolean> {
-    const result = await this.accountDB.findOne({ email: email });
-    if (result) {
-      return true;
-    }
-    return false;
+  async getAll_User(role: string) {
+    const data = await this.accountDB.find({ role: { $in: [role] } });
+    return data;
+  }
+
+  async chrole(id: string, role: RoleDto) {
+    const Data1 = await this.accountDB.findById(id);
+    console.log(Data1);
+    const result = await this.accountDB
+      .findByIdAndUpdate(id, {
+        $set: { role: role.role },
+      })
+      .exec();
+    return result;
   }
 }

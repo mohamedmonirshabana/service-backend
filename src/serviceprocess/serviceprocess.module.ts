@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ServiceProcessSchema } from './schema/serviceprocess.schema';
-import { SERVICE_PROCESS } from '../../common/constrain';
+import { SERVICE_PROCESS } from '../common/constrain';
 import { ServiceProcessController } from './serviceprocess.controller';
 import { ServiceProcessService } from './serviceprocess.service';
 

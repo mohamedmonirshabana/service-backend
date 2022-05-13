@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
-import { SERVICE_PROVIDER } from '../../common/constrain';
+import { SERVICE_PROVIDER } from '../common/constrain';
 import { ServiceProviderDto } from './dto/serviceprovider.dto';
 
 @Injectable()

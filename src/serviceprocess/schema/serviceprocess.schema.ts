@@ -1,5 +1,5 @@
 import * as mongoose from 'mongoose';
-import { SERVICE_PROVIDER, USER_TBLE } from '../../../common/constrain';
+import { SERVICE_PROVIDER, USER_TBLE } from '../../common/constrain';
 
 export const ServiceProcessSchema = new mongoose.Schema({
   serviceprovider_Id: {
