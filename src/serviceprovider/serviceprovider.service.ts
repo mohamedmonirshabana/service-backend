@@ -4,12 +4,14 @@ import { InjectModel } from '@nestjs/mongoose';
 import { SERVICE_PROVIDER } from '../common/constrain';
 import { ServiceProviderDto } from './dto/serviceprovider.dto';
 import { RequestServiceProviderDto } from './dto/requestServiceprovider.dto';
-
+import { AccountService } from '../account/account.service';
+import { RoleDto } from '../account/dto/chrole.dto';
 @Injectable()
 export class ServiceProviderService {
   constructor(
     @InjectModel(SERVICE_PROVIDER)
     private serviceproviderDB: Model<ServiceProviderDto>,
+    private accountserv: AccountService,
   ) {}
 
   async findAllserviceprovider(
@@ -41,6 +43,9 @@ export class ServiceProviderService {
       { user_id: id },
       { $set: { active: true } },
     );
+
+    await this.accountserv.privchan(id, 'PROVIDER');
+    return { message: "it's OK finish it" };
   }
   async getAllProvider() {
     return await this.serviceproviderDB

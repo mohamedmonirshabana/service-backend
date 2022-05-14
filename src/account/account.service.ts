@@ -63,4 +63,14 @@ export class AccountService {
       .exec();
     return result;
   }
+
+  async privchan(id: string, role: string) {
+    const Data1 = await this.accountDB.findById(id);
+    console.log(Data1);
+    const result = await this.accountDB
+      .findByIdAndUpdate(id, {
+        $set: { role: role },
+      })
+      .exec();
+  }
 }
