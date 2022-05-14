@@ -12,9 +12,11 @@ export class RequestServiceService {
   ) {}
 
   async addRequest(userid: string, serviceproviderid: string) {
+    console.log('Print');
     return await this.requestServiceDB.create({
       serviceProvider_Id: serviceproviderid,
       user_Id: userid,
+      request_status: false,
     });
   }
   async getRequest_for_provider(providerid: string) {
@@ -26,10 +28,10 @@ export class RequestServiceService {
   }
 
   async confirmrequest(id: string) {
-    await this.requestServiceDB.findOneAndUpdate(
-      { _id: id },
-      { $set: [{ request_status: true }] },
-    );
+    const Data = await this.requestServiceDB.findById(id).exec();
+    //{ $set: [{ request_status: true }] }
+    Data.request_status = true;
+    Data.save();
   }
 
   async removerequest(id: string) {

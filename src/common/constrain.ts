@@ -13,3 +13,8 @@ export const REQUEST_SERVICE = prefix + 'RrequestService';
 export const PROVIDER_CASE = prefix + 'ProviderCase';
 export const SERVICE_PROCESS = prefix + 'ServiceProcess';
 export const APP_INFO = prefix + 'AppInfo';
+
+//----------------------------------
+export const ADMIN = 'admin';
+export const USER = 'user';
+export const PROVIDER = 'provider';

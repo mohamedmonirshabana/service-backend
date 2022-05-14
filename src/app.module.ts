@@ -20,6 +20,7 @@ import { CategoriesController } from './categories/categories.controller';
 import { AccountController } from './account/account.controller';
 import { ServicesController } from './services/services.controller';
 import { ServiceProviderController } from './serviceprovider/serviceprovider.controller';
+import { RequestServiceController } from './requestservice/requestservice.controller';
 
 @Module({
   imports: [
@@ -62,6 +63,7 @@ export class AppModule implements NestModule {
         method: RequestMethod.GET,
       },
       ServiceProviderController,
+      RequestServiceController,
     );
   }
 }

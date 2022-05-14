@@ -16,11 +16,19 @@ import { UserGuard } from '../guards/user.guard';
 import { ServiceProviderService } from '../serviceprovider/serviceprovider.service';
 import { request } from 'express';
 
-import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiBody,
+  ApiOkResponse,
+  ApiResponse,
+  ApiTags,
+  ApiUnauthorizedResponse,
+} from '@nestjs/swagger';
 
 @Controller('requestservice')
 @UseGuards(AuthenticationGuard)
 @ApiTags('request Service')
+@ApiBearerAuth('access-token')
 export class RequestServiceController {
   constructor(
     private requestService: RequestServiceService,
@@ -28,8 +36,15 @@ export class RequestServiceController {
   ) {}
 
   @Post()
-  @UseGuards(UserGuard)
+  // @UseGuards(UserGuard)
+  @ApiBody({ type: AddRequest })
+  @ApiResponse({
+    description: 'Add request provider',
+    status: 201,
+  })
+  @ApiOkResponse({ description: 'user Request Service' })
   async addrequest(@Body() addRequest: AddRequest) {
+    console.log(addRequest);
     await this.requestService.addRequest(
       addRequest.user_Id,
       addRequest.service_provider_Id,
@@ -38,16 +53,18 @@ export class RequestServiceController {
 
   @Get(':uid')
   @UseGuards(ProviderGuard)
-  async getRequestforProvider() {
-    const uid = request['user'][1];
+  async getRequestforProvider(@Param('uid') uid: string) {
     const Data = await this.serviceprovider.getDataByuserID(uid);
     const result = await this.requestService.getRequest_for_provider(Data._id);
     return result;
   }
 
   @Get('confirm/:id')
+  @UseGuards(ProviderGuard)
   async confirmRequest(@Param('id') id: string) {
+    console.log(id);
     await this.requestService.confirmrequest(id);
+    return { message: 'Confir Request' };
   }
 
   @Delete(':id')
