@@ -60,4 +60,8 @@ export class ServiceProviderService {
   async getAll() {
     return await this.serviceproviderDB.find();
   }
+
+  async getServiceprovider(id: string) {
+    return await this.serviceproviderDB.findById(id);
+  }
 }

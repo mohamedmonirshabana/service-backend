@@ -25,4 +25,8 @@ export class AppInfoService {
   async showBasket() {
     return await this.appinfoDB.findOne();
   }
+
+  async returnInfo() {
+    return await this.appinfoDB.findOne();
+  }
 }

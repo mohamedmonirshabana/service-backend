@@ -21,6 +21,8 @@ import { AccountController } from './account/account.controller';
 import { ServicesController } from './services/services.controller';
 import { ServiceProviderController } from './serviceprovider/serviceprovider.controller';
 import { RequestServiceController } from './requestservice/requestservice.controller';
+import { ServiceProcessController } from './serviceprocess/serviceprocess.controller';
+import { AppInfoModule } from './appinfo/appinfo.module';
 
 @Module({
   imports: [
@@ -33,7 +35,7 @@ import { RequestServiceController } from './requestservice/requestservice.contro
     ServiceProcessModule,
     ProviderCaseModule,
     AuthModule,
-    AppModule,
+    AppInfoModule,
   ],
   controllers: [],
   providers: [],
@@ -64,6 +66,7 @@ export class AppModule implements NestModule {
       },
       ServiceProviderController,
       RequestServiceController,
+      ServiceProcessController,
     );
   }
 }

@@ -25,4 +25,8 @@ export class CategoriesService {
     );
     return categoryData;
   }
+
+  async getCategoriesById(id: string) {
+    return await this.categoryDB.findOne({ _id: id });
+  }
 }

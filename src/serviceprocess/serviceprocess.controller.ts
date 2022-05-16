@@ -1,30 +1,40 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { ServiceProcessService } from './serviceprocess.service';
 import { ServiceProcessDto } from './dto/serviceprocess.dto';
-
-import { ApiResponse, ApiTags } from '@nestjs/swagger';
-
+import { AuthenticationGuard } from '../guards/authentication.guard';
+import { AdminGuard } from '../guards/admin.guard';
+import { UserGuard } from '../guards/user.guard';
+import { ProviderGuard } from '../guards/provider.guard';
+import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { AddCommentandRateDto } from './dto/addcomment.dto';
 @Controller('serviceprocess')
+@UseGuards(AuthenticationGuard)
 @ApiTags('service process')
+@ApiBearerAuth('access-token')
 export class ServiceProcessController {
   constructor(private serviceProcess: ServiceProcessService) {}
 
-  @Get(':id')
+  @Get('user/:id')
+  @UseGuards(UserGuard)
   async getprocessData(@Param('id') id: string) {
-    return await this.serviceProcess.getprocessinfo(id);
+    return await this.serviceProcess.getProcessForUser(id);
   }
 
-  @Post(':id')
-  async processDone(@Param('id') id: string) {
-    await this.serviceProcess.processDone(id);
+  @Get('provider/:id')
+  async getprocessDataForProvider(@Param('id') id: string) {
+    return await this.serviceProcess.getProcessForProvider(id);
   }
 
-  @Post('addcoment/:id')
-  async addcommentandandRat(
+  @Post('addrate/:id')
+  async addrateandComment(
     @Param('id') id: string,
-    @Body('comment') comment: string,
-    @Body('rate') rate: number,
+    @Body() addcommentandrate: AddCommentandRateDto,
   ) {
-    await this.serviceProcess.addCommentandRate(id, comment, rate);
+    await this.serviceProcess.addComment(addcommentandrate, id);
+  }
+
+  @Post('payment/:id')
+  async addpayment(@Param('id') id: string) {
+    await this.serviceProcess.payment(id);
   }
 }

@@ -10,6 +10,6 @@ import { ServicesController } from './services.controller';
   ],
   controllers: [ServicesController],
   providers: [ServicesService],
-  exports: [],
+  exports: [ServicesService],
 })
 export class ServicesModule {}

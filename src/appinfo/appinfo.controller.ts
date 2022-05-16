@@ -2,10 +2,19 @@ import { Controller, Get, Post, Put, Body, UseGuards } from '@nestjs/common';
 import { AppInfoService } from './appinfo.service';
 import { AdminGuard } from '../guards/admin.guard';
 
-import { ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiBody,
+  ApiOkResponse,
+  ApiResponse,
+  ApiTags,
+  ApiUnauthorizedResponse,
+} from '@nestjs/swagger';
+
 @Controller('appinfo')
 @UseGuards(AdminGuard)
 @ApiTags('App Info')
+@ApiBearerAuth('access-token')
 export class AppInfoController {
   constructor(private appinfoDB: AppInfoService) {}
 

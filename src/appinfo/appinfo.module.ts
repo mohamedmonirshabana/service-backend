@@ -11,6 +11,6 @@ import { APP_INFO } from '../common/constrain';
   ],
   controllers: [AppInfoController],
   providers: [AppInfoService],
-  exports: [],
+  exports: [AppInfoService],
 })
 export class AppInfoModule {}
