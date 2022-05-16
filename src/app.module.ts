@@ -23,6 +23,7 @@ import { ServiceProviderController } from './serviceprovider/serviceprovider.con
 import { RequestServiceController } from './requestservice/requestservice.controller';
 import { ServiceProcessController } from './serviceprocess/serviceprocess.controller';
 import { AppInfoModule } from './appinfo/appinfo.module';
+import { AppInfoController } from './appinfo/appinfo.controller';
 
 @Module({
   imports: [
@@ -67,6 +68,7 @@ export class AppModule implements NestModule {
       ServiceProviderController,
       RequestServiceController,
       ServiceProcessController,
+      AppInfoController,
     );
   }
 }

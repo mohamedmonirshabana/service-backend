@@ -6,12 +6,14 @@ import { SERVICE_PROCESS } from '../common/constrain';
 import { stringify } from 'querystring';
 import { AddCommentandRateDto } from './dto/addcomment.dto';
 import { ProviderCaseService } from '../providercase/providercase.service';
+import { AppInfoService } from '../appinfo/appinfo.service';
 @Injectable()
 export class ServiceProcessService {
   constructor(
     @InjectModel(SERVICE_PROCESS)
     private serviceprodcessDB: Model<ServiceProcessDto>,
     private providercase: ProviderCaseService,
+    private appinfo: AppInfoService,
   ) {}
   async getProcessForUser(userid: string) {
     const result = await this.serviceprodcessDB.find({ user_id: userid });
@@ -37,6 +39,7 @@ export class ServiceProcessService {
     Data.hand_payment = true;
     await Data.save();
     await this.providercase.addmoney(Data.providerid, Data.provider_price);
+    await this.appinfo.updateInfo(Data.Category_comission);
   }
 
   // async processDone(id: string) {

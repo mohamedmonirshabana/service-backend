@@ -8,10 +8,10 @@ import { APP_INFO } from '../common/constrain';
 export class AppInfoService {
   constructor(@InjectModel(APP_INFO) private appinfoDB: Model<AppInfoDto>) {}
 
-  async addmoneyforFirstTime(app_tax: number) {
+  async addmoneyforFirstTime(appinfo: AppInfoDto) {
     const Data = new this.appinfoDB({
       app_money: 0,
-      app_tax: app_tax,
+      app_tax: appinfo.app_tax,
     });
     await Data.save();
   }

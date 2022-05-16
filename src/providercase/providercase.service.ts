@@ -21,7 +21,7 @@ export class ProviderCaseService {
   }
 
   async addmoney(providerid: string, money: number) {
-    const Data = await this.providercaseDB.findOne({ provider_id: id });
+    const Data = await this.providercaseDB.findOne({ provider_id: providerid });
     if (Data) {
       const yourmoney = Data.moneycase;
       const total_money = yourmoney + money;
