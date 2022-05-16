@@ -11,12 +11,13 @@ import { ProviderCaseService } from './providercase.service';
 import { AuthenticationGuard } from '../guards/authentication.guard';
 import { ProviderGuard } from '../guards/provider.guard';
 
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
 @Controller('providercase')
 @UseGuards(AuthenticationGuard)
 @UseGuards(ProviderGuard)
 @ApiTags('provider Case')
+@ApiBearerAuth('access-token')
 export class ProviderCaseController {
   constructor(private providercase: ProviderCaseService) {}
 
@@ -25,16 +26,8 @@ export class ProviderCaseController {
     return await this.providercase.getallinfo(providerid);
   }
 
-  @Post('/addmoney/:id')
-  async addmoneyforprovider(
-    @Param('id') id: string,
-    @Body('money') money: number,
-  ) {
-    await this.providercase.addmoney(id, money);
-  }
-
   @Put('/getallmony/:id')
   async getAllMoney(@Param('id') id: string) {
-    await this.providercase.getallinfo(id);
+    await this.providercase.getallMoney(id);
   }
 }

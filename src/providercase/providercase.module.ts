@@ -13,6 +13,6 @@ import { providercaseSchema } from './schema/provercase.schema';
   ],
   controllers: [ProviderCaseController],
   providers: [ProviderCaseService],
-  exports: [],
+  exports: [ProviderCaseService],
 })
 export class ProviderCaseModule {}

@@ -10,14 +10,6 @@ export class ProviderCaseService {
     @InjectModel(PROVIDER_CASE) private providercaseDB: Model<ProviderCaseDto>,
   ) {}
 
-  async addmoney(providerid: string, money: number) {
-    const data = new this.providercaseDB({
-      provider_id: providerid,
-      moneycase: money,
-    });
-    await data.save();
-  }
-
   async getallinfo(providerid: string) {
     return await this.providercaseDB.findOne({ provider_id: providerid });
   }
@@ -26,5 +18,21 @@ export class ProviderCaseService {
     const data = await this.providercaseDB.findOne({ _id: id });
     data.moneycase = 0;
     data.save();
+  }
+
+  async addmoney(providerid: string, money: number) {
+    const Data = await this.providercaseDB.findOne({ provider_id: id });
+    if (Data) {
+      const yourmoney = Data.moneycase;
+      const total_money = yourmoney + money;
+      Data.moneycase = total_money;
+      await Data.save();
+    } else {
+      const data = new this.providercaseDB({
+        provider_id: providerid,
+        moneycase: money,
+      });
+      await data.save();
+    }
   }
 }
