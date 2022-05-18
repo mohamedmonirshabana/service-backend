@@ -24,9 +24,13 @@ import { RequestServiceController } from './requestservice/requestservice.contro
 import { ServiceProcessController } from './serviceprocess/serviceprocess.controller';
 import { AppInfoModule } from './appinfo/appinfo.module';
 import { AppInfoController } from './appinfo/appinfo.controller';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
     MongooseModule.forRoot(Mongo_String),
     ServicesModule,
     CategoriesModule,
