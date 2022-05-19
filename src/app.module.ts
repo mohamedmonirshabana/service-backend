@@ -25,6 +25,7 @@ import { ServiceProcessController } from './serviceprocess/serviceprocess.contro
 import { AppInfoModule } from './appinfo/appinfo.module';
 import { AppInfoController } from './appinfo/appinfo.controller';
 import { ConfigModule } from '@nestjs/config';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
   imports: [

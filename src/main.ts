@@ -27,6 +27,10 @@ async function bootstrap() {
   SwaggerModule.setup('api/doc', app, document);
   const configService = app.get(ConfigService);
   const poart = configService.get('PORT');
+  app.enableCors({
+    origin: '*',
+    allowedHeaders: 'Content-Type, Access-Control-Allow-Headers, Authorization',
+  });
   await app.listen(poart);
 }
 bootstrap();

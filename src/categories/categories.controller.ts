@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  UseGuards,
+  HttpCode,
+  HttpStatus,
+} from '@nestjs/common';
 import { CategoriesService } from './categories.service';
 import { CategoriesDto } from './dto/categories.dto';
 import { AdminGuard } from '../guards/admin.guard';
@@ -21,8 +29,9 @@ export class CategoriesController {
   }
 
   @Get()
+  @HttpCode(HttpStatus.OK)
   async getAllCategory() {
-    console.log('KoKo');
+    // console.log('KoKo');
     return await this.categoryDB.findAll();
   }
 }
