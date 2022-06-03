@@ -69,6 +69,11 @@ export class ServicesController {
 
   @Get('category/:id')
   async getbycategoryID(@Param('id') id: string) {
-    return await this.serviceService.findByCategoryID(id);
+    try {
+      console.log(id);
+      return await this.serviceService.findByCategoryID(id);
+    } catch (err) {
+      throw new Error(err.message);
+    }
   }
 }

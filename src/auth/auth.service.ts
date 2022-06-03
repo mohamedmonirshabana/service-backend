@@ -60,6 +60,7 @@ export class AuthService {
           id: mailcheck._id,
           username: mailcheck.username,
           profilepic: mailcheck.profilepics,
+          role: mailcheck.role.toString(),
           token: jwtAuthToken,
         };
       }

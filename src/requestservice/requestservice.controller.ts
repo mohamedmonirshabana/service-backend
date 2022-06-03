@@ -54,8 +54,9 @@ export class RequestServiceController {
   @Get(':uid')
   @UseGuards(ProviderGuard)
   async getRequestforProvider(@Param('uid') uid: string) {
-    const Data = await this.serviceprovider.getDataByuserID(uid);
-    const result = await this.requestService.getRequest_for_provider(Data._id);
+    // const Data = await this.serviceprovider.getDataByuserID(uid);
+    // console.log('uid ' + uid);
+    const result = await this.requestService.getRequest_for_provider(uid);
     return result;
   }
 
