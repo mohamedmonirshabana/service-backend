@@ -40,6 +40,13 @@ export class RequestServiceService {
       .exec();
   }
 
+  async getRequest_active(requestid: string) {
+    return await this.requestServiceDB
+      .findById(requestid)
+      .populate('user_Id')
+      .exec();
+  }
+
   async confirmrequest(id: string) {
     const Data = await this.requestServiceDB.findById(id).exec();
     const userid = Data.user_Id;

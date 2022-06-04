@@ -63,9 +63,15 @@ export class RequestServiceController {
   @Get('confirm/:id')
   @UseGuards(ProviderGuard)
   async confirmRequest(@Param('id') id: string) {
-    console.log(id);
+    // console.log(id);
     await this.requestService.confirmrequest(id);
     return { message: 'Confir Request' };
+  }
+
+  @Get('activerequest/:id')
+  @UseGuards(ProviderGuard)
+  async getActiverequest(@Param('id') id: string) {
+    return await this.requestService.getRequest_active(id);
   }
 
   @Delete(':id')
