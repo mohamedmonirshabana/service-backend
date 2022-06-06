@@ -20,6 +20,11 @@ export class ServiceProcessController {
     return await this.serviceProcess.getProcessForUser(id);
   }
 
+  @Get('process/:id')
+  async getProcessbyID(@Param('id') id: string) {
+    return await this.serviceProcess.getprocessById(id);
+  }
+
   @Get('provider/:id')
   async getprocessDataForProvider(@Param('id') id: string) {
     return await this.serviceProcess.getProcessForProvider(id);
@@ -36,5 +41,15 @@ export class ServiceProcessController {
   @Post('payment/:id')
   async addpayment(@Param('id') id: string) {
     await this.serviceProcess.payment(id);
+  }
+
+  @Post('arraive/:id')
+  async addarive(@Param('id') id: string) {
+    await this.serviceProcess.arrivestate(id);
+  }
+
+  @Post('finish/:id')
+  async finsh(@Param('id') id: string) {
+    await this.serviceProcess.finishstate(id);
   }
 }

@@ -48,6 +48,7 @@ export class RequestServiceController {
     await this.requestService.addRequest(
       addRequest.user_Id,
       addRequest.service_provider_Id,
+      addRequest.provider_Id,
     );
   }
 
@@ -56,6 +57,7 @@ export class RequestServiceController {
   async getRequestforProvider(@Param('uid') uid: string) {
     // const Data = await this.serviceprovider.getDataByuserID(uid);
     // console.log('uid ' + uid);
+    // console.log(uid);
     const result = await this.requestService.getRequest_for_provider(uid);
     return result;
   }
@@ -63,7 +65,7 @@ export class RequestServiceController {
   @Get('confirm/:id')
   @UseGuards(ProviderGuard)
   async confirmRequest(@Param('id') id: string) {
-    // console.log(id);
+    // console.log('----------------------', id);
     await this.requestService.confirmrequest(id);
     return { message: 'Confir Request' };
   }

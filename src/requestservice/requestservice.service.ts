@@ -10,6 +10,7 @@ import { ServicesService } from '../services/services.service';
 import { CategoriesService } from '../categories/categories.service';
 import { AppInfoService } from '../appinfo/appinfo.service';
 import { ServiceProcessService } from '../serviceprocess/serviceprocess.service';
+import { RequestServiceProviderDto } from '../serviceprovider/dto/requestServiceprovider.dto';
 @Injectable()
 export class RequestServiceService {
   constructor(
@@ -23,21 +24,29 @@ export class RequestServiceService {
     private serviceprocess: ServiceProcessService,
   ) {}
 
-  async addRequest(userid: string, serviceproviderid: string) {
-    console.log('Print');
+  async addRequest(
+    userid: string,
+    serviceproviderid: string,
+    providerid: string,
+  ) {
+    // console.log('Print');
     return await this.requestServiceDB.create({
       serviceProvider_Id: serviceproviderid,
       user_Id: userid,
+      provider_Id: providerid,
       request_status: false,
     });
   }
   async getRequest_for_provider(providerid: string) {
-    return await this.requestServiceDB
+    const Data = await this.requestServiceDB
       .find({
-        $and: [{ serviceProvider_Id: providerid }, { request_status: false }],
+        $and: [{ provider_Id: providerid }, { request_status: false }],
       })
       .populate('user_Id')
+      .populate('serviceProvider_Id')
       .exec();
+    // console.log(Data);
+    return Data;
   }
 
   async getRequest_active(requestid: string) {
@@ -48,37 +57,75 @@ export class RequestServiceService {
   }
 
   async confirmrequest(id: string) {
-    const Data = await this.requestServiceDB.findById(id).exec();
-    const userid = Data.user_Id;
-    const user = await this.accountserv.getAccount(userid);
-    const serviceProviderId = Data.serviceProvider_Id;
-    const providerData = await this.serviceProviderData.getServiceprovider(
-      serviceProviderId,
-    );
-    const price = providerData.serviceprice;
-    const providerId = providerData.user_id;
-    const serviceId = providerData.service_id;
-    const servicedata = await this.serviceData.findByID(serviceId);
-    const catID = servicedata[0].category_Id;
-    const categoryData = await this.cateData.getCategoriesById(catID);
-    const catComission = categoryData.appcommission;
+    // console.log(id);
+    const Data = await this.requestServiceDB
+      .findOne({ $and: [{ provider_Id: id }, { status: false }] })
+      .populate('user_Id')
+      .populate('serviceProvider_Id')
+      .exec();
+    console.log('Confirm Log');
+    console.log(Data);
+    const serviceprovider: any = Data.serviceProvider_Id;
+    const serviceproviderid = serviceprovider._id;
+    const user: any = Data.user_Id;
+    const userid = user._id;
+    const price = serviceprovider.serviceprice;
+    const providerid = Data.provider_Id;
+    const servieid = serviceprovider.service_id;
+    const serviceData = await this.serviceData.findByID(servieid);
+    const catData: any = serviceData.category_Id;
+    const catComission = catData.appcommission;
     const appData = await this.appinfo.returnInfo();
     const tax = appData.app_tax;
-    //------------
-    const mycomission = price * catComission;
-    const mytax = price * (tax / 100);
+
+    const mycomission = price - price * catComission;
+    const mytax = price - price * (tax / 100);
     const myTotal = price + mycomission + mytax;
-    //-------------
     const Addprocess = await this.serviceprocess.addRequestData(
-      serviceProviderId,
+      serviceproviderid,
       userid,
-      providerId,
+      id,
       user.location,
       price,
-      catComission,
-      tax,
+      mycomission,
+      mytax,
       myTotal,
     );
+    Data.request_status = true;
+    Data.save();
+    return Addprocess;
+    // console.log('Good ', Addprocess);
+
+    // const userid = Data.user_Id; //'user_Id serviceProvider_Id'
+    // const user = await this.accountserv.getAccount(userid);
+    // const serviceProviderId = Data.serviceProvider_Id;
+    // const providerData = await this.serviceProviderData.getServiceprovider(
+    //   serviceProviderId,
+    // );
+    // const price = providerData.serviceprice;
+    // const providerId = providerData.user_id;
+    // const serviceId = providerData.service_id;
+    // const servicedata = await this.serviceData.findByID(serviceId);
+    // const catID = servicedata[0].category_Id;
+    // const categoryData = await this.cateData.getCategoriesById(catID);
+    // const catComission = categoryData.appcommission;
+    // const appData = await this.appinfo.returnInfo();
+    // const tax = appData.app_tax;
+    //------------
+    // const mycomission = price * catComission;
+    // const mytax = price * (tax / 100);
+    // const myTotal = price + mycomission + mytax;
+    //-------------
+    // const Addprocess = await this.serviceprocess.addRequestData(
+    //   serviceProviderId,
+    //   userid,
+    //   providerId,
+    //   user.location,
+    //   price,
+    //   catComission,
+    //   tax,
+    //   myTotal,
+    // );
     //Calculate Total
 
     // serviceprovider ID,
@@ -91,9 +138,9 @@ export class RequestServiceService {
     //      provider id
     //user ID
     //  location
-    Data.request_status = true;
-    Data.save();
-    return Addprocess;
+    // Data.request_status = true;
+    // Data.save();
+    // return Addprocess;
     //
   }
 

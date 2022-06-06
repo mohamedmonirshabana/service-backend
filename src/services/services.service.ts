@@ -24,7 +24,9 @@ export class ServicesService {
   }
 
   async findByID(id: string) {
-    const data = await this.serviceDB.find({ _id: id });
+    const data = await this.serviceDB
+      .findOne({ _id: id })
+      .populate('category_Id');
     return data;
   }
 

@@ -13,6 +13,11 @@ export const requestServiceSchema = new mongoose.Schema(
       ref: USER_TBLE,
       required: true,
     },
+    provider_Id: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: USER_TBLE,
+      required: true,
+    },
     request_status: { type: Boolean, default: false },
   },
   { timestamps: true },

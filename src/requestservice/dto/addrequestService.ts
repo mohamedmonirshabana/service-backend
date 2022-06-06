@@ -8,4 +8,7 @@ export class AddRequest {
   @IsMongoId()
   @ApiProperty({ type: String, description: 'user ID' })
   user_Id: string;
+  @IsMongoId()
+  @ApiProperty({ type: String, description: 'Provider ID' })
+  provider_Id: string;
 }

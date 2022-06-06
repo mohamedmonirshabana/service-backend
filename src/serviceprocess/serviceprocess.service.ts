@@ -21,10 +21,23 @@ export class ServiceProcessService {
   }
 
   async getProcessForProvider(providerid: string) {
-    const result = await this.serviceprodcessDB.find({
-      providerid: providerid,
-    });
+    const result = await this.serviceprodcessDB
+      .findOne({
+        $and: [
+          { providerid: providerid },
+          { arriveState: false },
+          { finish_Status: false },
+          { hand_payment: false },
+        ],
+      })
+      .populate('user_id');
     return result;
+  }
+
+  async getprocessById(id: string) {
+    return await this.serviceprodcessDB
+      .findOne({ _id: id })
+      .populate('user_id');
   }
 
   async addComment(commentandrate: AddCommentandRateDto, id: string) {
@@ -40,6 +53,18 @@ export class ServiceProcessService {
     await Data.save();
     await this.providercase.addmoney(Data.providerid, Data.provider_price);
     await this.appinfo.updateInfo(Data.Category_comission);
+  }
+
+  async arrivestate(id: string) {
+    const Data = await this.serviceprodcessDB.findOne({ _id: id });
+    Data.arriveState = true;
+    await Data.save();
+  }
+
+  async finishstate(id: string) {
+    const Data = await this.serviceprodcessDB.findOne({ _id: id });
+    Data.finish_Status = true;
+    await Data.save();
   }
 
   // async processDone(id: string) {

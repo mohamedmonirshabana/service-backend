@@ -7,5 +7,7 @@ export class RequestServiceDto {
   serviceProvider_Id: string;
   @IsMongoId()
   user_Id: string;
+  @IsMongoId()
+  provider_Id: string;
   request_status: boolean;
 }
