@@ -11,11 +11,13 @@ export class ProviderCaseService {
   ) {}
 
   async getallinfo(providerid: string) {
+    // console.log('service', providerid);
     return await this.providercaseDB.findOne({ provider_id: providerid });
   }
 
   async getallMoney(id: string) {
-    const data = await this.providercaseDB.findOne({ _id: id });
+    console.log(id);
+    const data = await this.providercaseDB.findOne({ provider_id: id });
     data.moneycase = 0;
     data.save();
   }

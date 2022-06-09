@@ -26,6 +26,7 @@ import { AppInfoModule } from './appinfo/appinfo.module';
 import { AppInfoController } from './appinfo/appinfo.controller';
 import { ConfigModule } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
+import { ProviderCaseController } from './providercase/providercase.controller';
 
 @Module({
   imports: [
@@ -74,6 +75,7 @@ export class AppModule implements NestModule {
       RequestServiceController,
       ServiceProcessController,
       AppInfoController,
+      ProviderCaseController,
     );
   }
 }

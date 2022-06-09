@@ -67,6 +67,23 @@ export class ServiceProcessService {
     await Data.save();
   }
 
+  async getHistoryforuser(id: string) {
+    console.log(id);
+    const Data = await this.serviceprodcessDB
+      .find({
+        $and: [
+          { user_id: id },
+          { finish_Status: true },
+          { hand_payment: true },
+          { arriveState: true },
+        ],
+      })
+      .populate('user_id')
+      .exec();
+    console.log(Data);
+    return Data;
+  }
+
   // async processDone(id: string) {
   //   // await this.serviceprodcessDB.findByIdAndUpdate(id, {
   //   //   $set: [{ status: true }],

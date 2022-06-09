@@ -52,4 +52,9 @@ export class ServiceProcessController {
   async finsh(@Param('id') id: string) {
     await this.serviceProcess.finishstate(id);
   }
+
+  @Get('userhistory/:id')
+  async userHistory(@Param('id') id: string) {
+    return this.serviceProcess.getHistoryforuser(id);
+  }
 }
