@@ -6,6 +6,8 @@ import {
   UseGuards,
   HttpCode,
   HttpStatus,
+  Put,
+  Param,
 } from '@nestjs/common';
 import { CategoriesService } from './categories.service';
 import { CategoriesDto } from './dto/categories.dto';
@@ -33,5 +35,19 @@ export class CategoriesController {
   async getAllCategory() {
     // console.log('KoKo');
     return await this.categoryDB.findAll();
+  }
+
+  @Put(':id')
+  async updatecategory(
+    @Param('id') id: string,
+    @Body() catdata: CategoriesDto,
+  ) {
+    console.log('Dddd');
+    return await this.updatecategory(id, catdata);
+  }
+
+  @Get('/category/:id')
+  async CategoryDatabyid(@Param('id') id: string) {
+    return this.categoryDB.CatData(id);
   }
 }

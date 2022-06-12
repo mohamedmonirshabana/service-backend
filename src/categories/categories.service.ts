@@ -18,15 +18,19 @@ export class CategoriesService {
     return await categoryData.save();
   }
   async updateCategory(id: string, change: CategoriesDto) {
-    const categoryData = await this.categoryDB.findOneAndUpdate(
-      { _id: id },
-      change,
-      { new: true },
-    );
+    console.log('hhh');
+    const categoryData = await this.categoryDB.findOne({ _id: id });
+    categoryData.categoryName = change.categoryName;
+    categoryData.appcommission = change.appcommission;
+    await categoryData.save();
     return categoryData;
   }
 
   async getCategoriesById(id: string) {
+    return await this.categoryDB.findOne({ _id: id });
+  }
+
+  async CatData(id: string) {
     return await this.categoryDB.findOne({ _id: id });
   }
 }
