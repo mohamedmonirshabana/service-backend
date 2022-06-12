@@ -6,6 +6,7 @@ import {
   Param,
   Body,
   UseGuards,
+  Delete,
 } from '@nestjs/common';
 import { ServiceProviderDto } from './dto/serviceprovider.dto';
 import { RequestServiceProviderDto } from './dto/requestServiceprovider.dto';
@@ -78,5 +79,15 @@ export class ServiceProviderController {
   @UseGuards(AdminGuard)
   async confirmuserRequest(@Param('id') id: string) {
     await this.serviceProviderService.confirmprovider(id);
+  }
+
+  @Get('providerrequest')
+  async getallproviderRequest() {
+    return await this.serviceProviderService.getProviderrequest();
+  }
+
+  @Delete(':id')
+  async removeRequest(@Param('id') id: string) {
+    return await this.serviceProviderService.rejectRequest(id);
   }
 }

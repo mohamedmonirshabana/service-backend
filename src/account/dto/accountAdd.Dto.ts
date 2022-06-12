@@ -1,8 +1,10 @@
 import { IsEmail, IsMongoId, IsPhoneNumber, IsString } from 'class-validator';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Document, Mongoose, SchemaType } from 'mongoose';
 
 export class AccountAdd {
   @IsMongoId()
-  _id: string;
+  id: string;
   @IsString()
   username: string;
   @IsString()

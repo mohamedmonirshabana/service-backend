@@ -70,4 +70,16 @@ export class AccountController {
   async upRole(@Param('id') id: string, @Body() role: RoleDto) {
     return await this.account.chrole(id, role);
   }
+
+  @Get('getalluseres/:role')
+  @UseGuards(AdminGuard)
+  async moroinfo(@Param('role') role: string) {
+    return await this.account.getAlluserforAdmin(role);
+  }
+
+  // @Get('/propdp/')
+  // // @UseGuards(AdminGuard)
+  // async GetAllProvideres() {
+  //   return await this.account.x2();
+  // }
 }

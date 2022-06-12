@@ -28,4 +28,9 @@ export class AppInfoController {
   async showinfo() {
     return await this.appinfoDB.showBasket();
   }
+
+  @Put()
+  async addtax(@Body('tax') tax: number) {
+    await this.appinfoDB.changeTax(tax);
+  }
 }

@@ -17,9 +17,19 @@ export class AppInfoService {
   }
 
   async updateInfo(money: number) {
+    console.log('For info');
     const data = await this.appinfoDB.findOne();
     data.app_money += money;
     data.save();
+  }
+
+  async changeTax(tax: number) {
+    const data = await this.appinfoDB.findOne();
+    const dataMoney = data.app_money;
+    data.app_tax = tax;
+    data.app_money = dataMoney;
+    data.save();
+    return { message: 'Good' };
   }
 
   async showBasket() {

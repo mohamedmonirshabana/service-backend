@@ -73,4 +73,12 @@ export class AccountService {
       })
       .exec();
   }
+
+  async getAlluserforAdmin(urole: string) {
+    const Data = await this.accountDB.find({ role: urole });
+    console.log(Data);
+    return Data;
+    // const myData = { name: 'medo', job: 'Developer' };
+    // return myData;
+  }
 }

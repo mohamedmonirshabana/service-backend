@@ -39,12 +39,14 @@ export class ServiceProviderService {
   }
 
   async confirmprovider(id: string) {
-    const result = await this.serviceproviderDB.findOneAndUpdate(
-      { user_id: id },
-      { $set: { active: true } },
-    );
-
-    await this.accountserv.privchan(id, 'PROVIDER');
+    const result = await this.serviceproviderDB
+      .findOne({
+        $and: [{ _id: id }, { active: false }],
+      })
+      .exec();
+    console.log(result);
+    result.active = true;
+    await result.save();
     return { message: "it's OK finish it" };
   }
   async getAllProvider() {
@@ -61,7 +63,20 @@ export class ServiceProviderService {
     return await this.serviceproviderDB.find();
   }
 
+  async getProviderrequest() {
+    const data = await this.serviceproviderDB
+      .find({ active: false })
+      .populate('user_id')
+      .populate('service_id')
+      .exec();
+    return data;
+  }
+
   async getServiceprovider(id: string) {
     return await this.serviceproviderDB.findById(id);
+  }
+
+  async rejectRequest(id: string) {
+    return await this.serviceproviderDB.findByIdAndDelete(id);
   }
 }
