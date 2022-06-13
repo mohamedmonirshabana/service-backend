@@ -21,7 +21,7 @@ import { ApiTags, ApiBearerAuth, ApiResponse, ApiBody } from '@nestjs/swagger';
 export class CategoriesController {
   constructor(private categoryDB: CategoriesService) {}
 
-  @Post()
+  @Post('/')
   @UseGuards(AuthenticationGuard)
   @UseGuards(AdminGuard)
   @ApiBearerAuth('access-token')
@@ -30,14 +30,14 @@ export class CategoriesController {
     return await this.categoryDB.addCategory(category);
   }
 
-  @Get()
+  @Get('/')
   @HttpCode(HttpStatus.OK)
   async getAllCategory() {
     // console.log('KoKo');
     return await this.categoryDB.findAll();
   }
 
-  @Put(':id')
+  @Put('update/:id')
   async updatecategory(
     @Param('id') id: string,
     @Body() catdata: CategoriesDto,
