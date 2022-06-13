@@ -18,7 +18,7 @@ export class CategoriesService {
     return await categoryData.save();
   }
   async updateCategory(id: string, change: CategoriesDto) {
-    console.log('hhh');
+    // console.log('hhh');
     const categoryData = await this.categoryDB.findOne({ _id: id });
     categoryData.categoryName = change.categoryName;
     categoryData.appcommission = change.appcommission;

@@ -42,8 +42,8 @@ export class CategoriesController {
     @Param('id') id: string,
     @Body() catdata: CategoriesDto,
   ) {
-    console.log('Dddd');
-    return await this.updatecategory(id, catdata);
+    // console.log('Dddd');
+    return await this.categoryDB.updateCategory(id, catdata);
   }
 
   @Get('/category/:id')
