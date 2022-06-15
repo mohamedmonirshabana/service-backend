@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
-import { SERVICE_PROVIDER } from '../common/constrain';
+import { PROVIDER, SERVICE_PROVIDER } from '../common/constrain';
 import { ServiceProviderDto } from './dto/serviceprovider.dto';
 import { RequestServiceProviderDto } from './dto/requestServiceprovider.dto';
 import { AccountService } from '../account/account.service';
@@ -47,6 +47,9 @@ export class ServiceProviderService {
     console.log(result);
     result.active = true;
     await result.save();
+    const providerRole = new RoleDto();
+    providerRole.role = ['PROVIDER'];
+    await this.accountserv.chrole(result.user_id, providerRole);
     return { message: "it's OK finish it" };
   }
   async getAllProvider() {
