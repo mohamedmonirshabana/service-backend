@@ -27,7 +27,7 @@ import { AppInfoController } from './appinfo/appinfo.controller';
 import { ConfigModule } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 import { ProviderCaseController } from './providercase/providercase.controller';
-
+import { GenerateDataModule } from './GenerateData/GenerateData.Module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -43,6 +43,7 @@ import { ProviderCaseController } from './providercase/providercase.controller';
     ProviderCaseModule,
     AuthModule,
     AppInfoModule,
+    GenerateDataModule,
   ],
   controllers: [],
   providers: [],
