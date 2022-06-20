@@ -5,7 +5,7 @@ import { ConfigService } from '@nestjs/config';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.setGlobalPrefix('api');
+  // app.setGlobalPrefix('api');
   app.useGlobalPipes();
   const options = new DocumentBuilder()
     .setTitle('Service API')
