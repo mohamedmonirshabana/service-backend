@@ -1,7 +1,7 @@
-export const Mongo_String =
-  'mongodb+srv://medo:Medo_123@cluster0.wongn.mongodb.net/service-Contain?retryWrites=true&w=majority';
+// export const Mongo_String =
+//   'mongodb+srv://medo:Medo_123@cluster0.wongn.mongodb.net/service-Contain?retryWrites=true&w=majority';
 
-// export const Mongo_String = 'mongodb://localhost:27017/service-Contain';
+export const Mongo_String = 'mongodb://localhost:27017/service-Contain';
 export const JWT_SECRECT = '7bc78545b1a3923cc1e1e19523fd5c3f20b409509...';
 
 export const Service_DB = 'Service-Contain';
